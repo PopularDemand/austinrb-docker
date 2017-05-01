@@ -1,6 +1,7 @@
 FROM ruby:2.3.3
 RUN gem install rack
 RUN gem install puma
+RUN gem install redis
 RUN mkdir /myapp
 WORKDIR /myapp
 ADD . /myapp
