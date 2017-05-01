@@ -3,7 +3,7 @@ services:
   web: 
     image: eliaslopezgtz/ruby_test:master
     deploy:
-      replicas: 1
+      replicas: 5 
       resources:
         limits:
           cpus: "0.1"
