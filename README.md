@@ -1,11 +1,12 @@
-# Docker
+# AustinRB Dockerizing Ruby Applications
+
 ## Prerequisites
 * Install [Docker Community Edition](https://www.docker.com/community-edition)
 * Clone this repo 
 ```git clone git@github.com:eliaslopezgt/austinrb-docker.git```
 
 ## Documentation
-* [DockerFile builder reference] (https://docs.docker.com/engine/reference/builder/)
+* [DockerFile builder reference](https://docs.docker.com/engine/reference/builder/)
 
 
 ## Step 1
