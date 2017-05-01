@@ -132,6 +132,32 @@ docker stack deploy -c docker-compose.yml ruby_test
 docker stack rm ruby_test
 ```
 
+## Simulate the cloud 
+From the [Docker docs](https://docs.docker.com/get-started/part4/#create-a-cluster)
+
+Create a couple of VMs using docker-machine, using the VirtualBox driver:
+
+```
+$ docker-machine create --driver virtualbox myvm1
+$ docker-machine create --driver virtualbox myvm2
+$ docker-machine create --driver virtualbox myvm3
+```
+
+### Instruct myvm1 to become a swarm manager with 
+
+```
+docker-machine ssh myvm1 "docker swarm init --advertise-addr 192.168.99.100:2377"
+```
+
+Copy this command, and send it to myvm2 via docker-machine ssh to have myvm2 join your new swarm as a worker:
+
+```
+$ docker-machine ssh myvm2 "docker swarm join \
+--token <token> \
+<ip>:<port>"
+
+This node joined a swarm as a worker.
+```
 
 ## Push changes to docker node manager myvm1
 Everytime we update the docker-compose.yml is changed we need to update it in our nodes.
