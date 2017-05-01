@@ -10,7 +10,7 @@
 * [Get a docker hub account](https://hub.docker.com/)
 
 ## Acceptance Criteria
-* As a user I want to invoke an endpoint and increment a counter stored in redis
+* As a user I want to invoke an endpoint and increment a counter stored in redis.
 * This application should be served using [puma](http://puma.io/).
 * This should be a rack application.
 
@@ -33,7 +33,20 @@ Maybe the redis server.
 ### Install missing services? probably ... not.
 Install [redis](https://redis.io/download).
 
-## Step 1
+## Why not scripting it inside a [Dockerfile](https://github.com/eliaslopezgt/austinrb-docker/blob/master/Dockerfile)
+```
+FROM ruby:2.3.3
+RUN gem install rack
+RUN gem install puma
+RUN gem install redis
+RUN mkdir /myapp
+WORKDIR /myapp
+ADD . /myapp
+EXPOSE 80
+CMD ["rackup","-s","puma","-o","0.0.0.0","-p","80"]
+```
+
+## How to run it with Docker
 Build the Docker Image
 
 ```
@@ -43,14 +56,63 @@ docker build -t ruby_test .
 Run the Docker Image
 
 ```
-docker run -p 3000:80 ruby_test
+docker run -p 80:80 ruby_test
 ```
 
-Go to [http://localhost:3000](http://localhost:3000)
+Go to [http://localhost](http://localhost)
 The response should be something like
 
 ```
 Counter:Redis not available Served from: X.X.X.X
+```
+
+### Install missing services? probably ... not.
+Lets script the services instead using a docker-compose.yml file.
+
+## Enter [docker-compose.yml](https://github.com/eliaslopezgt/austinrb-docker/blob/master/docker-compose.yml)
+
+```
+version: '3'
+services:
+  web: 
+    image: eliaslopezgtz/ruby_test:master
+    deploy:
+      replicas: 1 
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    ports:
+      - "80:80"
+    command: rackup -s puma -o 0.0.0.0 -p 80
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  redis:
+    image: redis
+    ports:
+      - "6379:6739"
+    volumes:
+      - ./data:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+networks:
+  webnet:
 ```
 
 ## Push changes to docker image
