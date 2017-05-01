@@ -7,9 +7,27 @@
 
 ## Documentation
 * [DockerFile builder reference](https://docs.docker.com/engine/reference/builder/)
-
+* [Get a docker hub account](https://hub.docker.com/)
 
 ## Step 1
+Build the Docker Image
+
+```
+docker build -t ruby_test .
+```
+
+Run the Docker Image
+
+```
+docker run -p 3000:80 ruby_test
+```
+
+Go to [http://localhost:3000](http://localhost:3000)
+The response should be something like
+
+```
+Counter:Redis not available Served from: X.X.X.X
+```
 
 ## Push changes to docker image
 To update the docker hub repository in this case I used:
