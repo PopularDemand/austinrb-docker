@@ -4,6 +4,7 @@ redis = Redis.new(:host => "redis", :port => 6379, :db => 1)
 
 begin
 	incr = redis.incr "counter"
+	incr = redis.get "counter"
 rescue
 	incr = "Redis not available"
 end
