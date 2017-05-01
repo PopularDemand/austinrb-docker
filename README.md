@@ -9,6 +9,30 @@
 * [DockerFile builder reference](https://docs.docker.com/engine/reference/builder/)
 * [Get a docker hub account](https://hub.docker.com/)
 
+## Acceptance Criteria
+* As a user I want to invoke an endpoint and increment a counter stored in redis
+* This application should be served using [puma](http://puma.io/).
+* This should be a rack application.
+
+## Deliverables
+* [config.ru](https://github.com/eliaslopezgt/austinrb-docker/blob/master/config.ru)
+
+## How to run it locally
+```rackup```
+### Did it work?
+Probably some dependencies were missing (puma, rack, redis)
+### Install missing gems? probably ... not.
+```
+gem install rack
+gem install puma
+gem install redis
+```
+try again.
+### Still missing something?
+Maybe the redis server.
+### Install missing services? probably ... not.
+Install [redis](https://redis.io/download).
+
 ## Step 1
 Build the Docker Image
 
