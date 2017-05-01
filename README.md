@@ -166,3 +166,5 @@ Everytime we update the docker-compose.yml is changed we need to update it in ou
 docker-machine scp docker-compose.yml myvm1:~
 docker-machine ssh myvm1 "docker stack deploy -c docker-compose.yml ruby_test"
 ```
+
+The End? not really.
