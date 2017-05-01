@@ -167,6 +167,8 @@ docker-machine scp docker-compose.yml myvm1:~
 docker-machine ssh myvm1 "docker stack deploy -c docker-compose.yml ruby_test"
 ```
 
+Open myvm1's ip [http://192.168.99.100:8080/](http://192.168.99.100:8080/)
+
 ### Remove stack from docker-machine
 ```
 docker-machine ssh myvm1 "docker stack rm ruby_test"
