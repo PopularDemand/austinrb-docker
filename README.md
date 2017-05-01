@@ -45,6 +45,13 @@ ADD . /myapp
 EXPOSE 80
 CMD ["rackup","-s","puma","-o","0.0.0.0","-p","80"]
 ```
+### Push changes to docker image (optional)
+To update the docker hub repository in this case I used:
+
+```
+docker login
+docker push eliaslopezgtz/ruby_test  
+```
 
 ## How to run it with Docker
 Build the Docker Image
@@ -115,12 +122,16 @@ networks:
   webnet:
 ```
 
-## Push changes to docker image
-To update the docker hub repository in this case I used:
+## Generate the local stack
+```
+docker stack deploy -c docker-compose.yml ruby_test
+```
+### Open the [visualizer](http://localhost:8080/)
+### Delete the local stack
+```
+docker stack rm ruby_test
+```
 
-```
-docker push eliaslopezgtz/ruby_test  
-```
 
 ## Push changes to docker node manager myvm1
 Everytime we update the docker-compose.yml is changed we need to update it in our nodes.
